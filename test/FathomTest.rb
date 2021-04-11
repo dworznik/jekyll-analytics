@@ -8,7 +8,7 @@ class TestFathom < Test::Unit::TestCase
     end
 
     def test_default_tracking_string
-        fathom = Fathom.new( {"id" => "ABCDE"} )
+        fathom = Fathom.new( {"id" => "ABCDE", "domain" => "example.org"} )
         assert_equal(fathom.render(), 
         """
     <!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
@@ -21,8 +21,8 @@ class TestFathom < Test::Unit::TestCase
         m=f.getElementsByTagName('script')[0];
         o.async=1; o.src=t; o.id='fathom-script';
         m.parentNode.insertBefore(o,m)
-    })(document, window, '//fathom.0xff.sh/tracker.js', 'fathom');
-    fathom('set', 'siteId', 'ABCDE');
+    })(document, window, '//example.org/tracker.js', 'fathom');
+\tfathom('set', 'siteId', 'ABCDE');
 \tfathom('trackPageview');
     </script>
     <!-- / Fathom -->

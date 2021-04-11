@@ -11,14 +11,13 @@ class Fathom
         m=f.getElementsByTagName('script')[0];
         o.async=1; o.src=t; o.id='fathom-script';
         m.parentNode.insertBefore(o,m)
-    })(document, window, '//fathom.0xff.sh/tracker.js', 'fathom');
-    %s
+    })%s
     </script>
     <!-- / Fathom -->
     """
 
     ID_RE = /^[A-Z]{5}$/    
-
+    DOMAIN_CODE = "(document, window, '//%s/tracker.js', 'fathom');"
     INITIALIZE_CODE = "fathom('set', 'siteId', '%s');"
     PAGEVIEW_CODE = "fathom('trackPageview');"
 
@@ -29,6 +28,7 @@ class Fathom
         end
 
         @commands = []
+        @commands.push(DOMAIN_CODE % config["domain"])
         @commands.push(INITIALIZE_CODE % config["id"])
         @commands.push(PAGEVIEW_CODE)
     end
